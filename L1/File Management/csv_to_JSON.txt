@@ -1,0 +1,31 @@
+import csv
+import json
+
+def csv_to_json(csv_file_path, json_file_path):
+    try:
+#         data =[]
+        with open(csv_file_path, 'r', encoding='utf-8') as csv_file:
+            csv_reader = csv.DictReader(csv_file)
+            
+#             Using list and appending the data in order
+#             for row in csv_reader:
+#                 data.append(row)
+            
+#          Convert the CSV rows into a standard Python list of dictionaries -- Using List of dictionary
+            data = list(csv_reader)
+            
+        with open(json_file_path, 'w', encoding='utf-8') as json_file:
+            json.dump(data, json_file, indent=4)
+            
+        print(f"Success! {csv_file_path} has been converted to {json_file_path}")
+        
+    except FileNotFoundError:
+        print(f"Error: The file at {csv_file_path} was not found.")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+
+if __name__ == "__main__":
+    input_csv = "/Users/Darshith D N/Python_HandsOn/L1/File Management/Employee.csv"
+    output_json = "Employee.json"
+    
+    csv_to_json(input_csv, output_json)

@@ -1,0 +1,26 @@
+from collections import Counter
+import re
+
+def count_word_frequencies(filename):
+    try:
+        with open(filename, 'r', encoding='utf-8') as file:
+            word_counts = Counter()
+            for line in file:
+                # Find words in each line to manage memory better
+                words = re.findall(r'\b\w+\b', line.lower())
+                word_counts.update(words)
+            return word_counts
+    except FileNotFoundError:
+        print(f"Error: The file at {filename} was not found.")
+        return None
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+        return None
+    
+if __name__ == "__main__":
+    filename = "/Users/Darshith D N/Records.txt"
+    frequencies = count_word_frequencies(filename)
+    
+    if frequencies:
+        for word, count in frequencies.most_common():
+            print(f"{word}: {count}")
